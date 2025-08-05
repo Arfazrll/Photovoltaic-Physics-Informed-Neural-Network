@@ -1,4 +1,6 @@
-# 🌞 Optimasi Prediksi Energi Terbarukan Nasional Berbasis Physics-Informed Neural Network (PINN)
+<div align="center">
+
+# Optimasi Prediksi Energi Terbarukan Nasional Berbasis Physics-Informed Neural Network (PINN)
 
 <div align="center">
 
@@ -13,11 +15,13 @@
 
 *Mendukung Kemandirian Energi Nasional dan Target Net-Zero Emission Indonesia*
 
-[📖 Dokumentasi](#dokumentasi) • [🚀 Quick Start](#quick-start) • [🔬 Metodologi](#metodologi-pinn) • [📊 Hasil Penelitian](#hasil-dan-evaluasi) • [🤝 Kontribusi](#kontribusi)
+[📖 Dokumentasi](#dokumentasi) • [🌞 Model PINN](#-metodologi-pinn) • [📊 Hasil Penelitian](#-hasil-dan-evaluasi) • [🔗 Referensi](#-referensi-akademik)
 
 </div>
 
 ---
+
+<div align="left">
 
 ## 📋 Daftar Isi
 
@@ -119,49 +123,7 @@ graph TB
 
 ---
 
-## 🚀 Quick Start
-
-### ⚡ 5-Minute Setup
-
-```bash
-# 1. Clone repository
-git clone https://github.com/yourusername/pinn-solar-prediction.git
-cd pinn-solar-prediction
-
-# 2. Setup environment
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Get NREL API key (free)
-# Visit: https://developer.nrel.gov/signup/
-
-# 5. Run prediction
-python PINN.py
-```
-
-### 🎯 Quick Demo
-```python
-# Minimal example
-from pinn_model import PINNPredictor
-
-# Initialize model
-predictor = PINNPredictor()
-
-# Load and predict
-data = predictor.load_data('1398305_1.93_125.50_2020.csv')
-predictions = predictor.predict(data)
-
-# Evaluate
-metrics = predictor.evaluate()
-print(f"Model R²: {metrics['r2']:.4f}")
-```
-
----
-
-## 🔧 Instalasi Detail
+## 🚀 Instalasi dan Setup
 
 ### 📋 System Requirements
 - **OS**: Windows 10/11, macOS 10.15+, Ubuntu 18.04+
@@ -169,65 +131,50 @@ print(f"Model R²: {metrics['r2']:.4f}")
 - **RAM**: Minimum 8GB, Recommended 16GB
 - **Storage**: 2GB free space
 
-### 🐍 Dependencies
+### 🔧 Langkah Instalasi
 
 ```bash
-# Core ML libraries
-pip install tensorflow==2.15.0
-pip install scikit-learn==1.3.0
-pip install keras==2.15.0
+# 1. Clone repository
+git clone https://github.com/yourusername/pinn-solar-prediction.git
+cd pinn-solar-prediction
 
-# Data processing
-pip install pandas==2.0.3
-pip install numpy==1.24.3
+# 2. Setup virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Visualization  
-pip install matplotlib==3.7.1
-pip install seaborn==0.12.2
+# 3. Install dependencies
+pip install pandas numpy matplotlib seaborn requests scikit-learn tensorflow
 
-# API & utilities
-pip install requests==2.31.0
-pip install jupyter
+# 4. Dapatkan NREL API key gratis di:
+# https://developer.nrel.gov/signup/
 ```
 
-### 🔑 NREL API Configuration
+### 🔑 NREL API Setup
 
-1. **Dapatkan API Key**:
-   - Kunjungi [NREL Developer Portal](https://developer.nrel.gov/signup/)
-   - Registrasi gratis dengan email
-   - Salin API key Anda
-
-2. **Setup Environment**:
-   ```bash
-   # Linux/macOS
-   export NREL_API_KEY="your_api_key_here"
-   
-   # Windows
-   set NREL_API_KEY=your_api_key_here
-   ```
-
-3. **Test Connection**:
+1. **Registrasi** di [NREL Developer Portal](https://developer.nrel.gov/signup/)
+2. **Dapatkan API key** gratis via email
+3. **Test koneksi**:
    ```python
    import requests
    
    api_key = "your_key"
    url = f"https://developer.nrel.gov/api/nsrdb/v2/solar/ping?api_key={api_key}"
    response = requests.get(url)
-   print("✅ API Connection Success!" if response.status_code == 200 else "❌ API Error")
+   print("✅ API Success!" if response.status_code == 200 else "❌ API Error")
    ```
 
 ---
 
 ## 📖 Panduan Penggunaan
 
-### 📊 Step 1: Data Acquisition
+### 📊 Step 1: Akuisisi Data
 
 #### Menggunakan Jupyter Notebook
 ```python
 # Buka Database-api.IPYNB
 jupyter notebook Database-api.IPYNB
 
-# Parameter konfigurasi
+# Konfigurasi parameter:
 api_key = "YOUR_NREL_API_KEY"
 lat = -1.93  # Latitude Indonesia
 lon = 125.50  # Longitude Indonesia  
@@ -237,73 +184,39 @@ email = "your_email@domain.com"
 # Jalankan semua cells untuk download data
 ```
 
-#### Menggunakan Python Script
-```python
-from data_acquisition import NRELDataDownloader
+### 🤖 Step 2: Training & Prediksi
 
-downloader = NRELDataDownloader(api_key="your_key")
-data = downloader.download_data(
-    latitude=-1.93,
-    longitude=125.50, 
-    year=2020,
-    attributes=['ghi', 'dni', 'dhi', 'temperature', 'wind_speed']
-)
-```
-
-### 🤖 Step 2: Model Training & Prediction
-
-#### Mode Interaktif (Recommended)
+#### Mode Interaktif
 ```python
 # Buka PINN.IPYNB di Jupyter
 jupyter notebook PINN.IPYNB
 
-# Ikuti step-by-step process:
-# 1. Load data
-# 2. Preprocessing  
-# 3. Model training
-# 4. Evaluation
-# 5. Visualization
+# Proses training otomatis:
+# 1. Load & preprocessing data
+# 2. Model training dengan PINN
+# 3. Evaluasi performa
+# 4. Visualisasi hasil
 ```
 
-#### Command Line Mode
+#### Command Line
 ```python
 # Eksekusi langsung
-python PINN.py --data_file "1398305_1.93_125.50_2020.csv" --epochs 100 --batch_size 32
+python PINN.py
 
-# Dengan custom parameters
-python PINN.py \
-    --data_file "your_data.csv" \
-    --test_size 0.2 \
-    --lambda_physics 0.1 \
-    --learning_rate 0.001 \
-    --early_stopping_patience 20
+# Model akan otomatis:
+# - Load data CSV
+# - Preprocessing & feature engineering  
+# - Training model PINN
+# - Generate predictions & metrics
 ```
 
-### 📈 Step 3: Results Analysis
+### 📈 Step 3: Analisis Hasil
 
-```python
-# Load trained model
-from pinn_model import PINNPredictor
-
-model = PINNPredictor.load_model('best_pinn_model.h5')
-
-# Generate predictions
-predictions = model.predict(test_data)
-
-# Performance metrics
-metrics = model.evaluate_performance(test_data, predictions)
-print(f"""
-Model Performance:
-- R² Score: {metrics['r2']:.4f}
-- MAE: {metrics['mae']:.4f} 
-- RMSE: {metrics['rmse']:.4f}
-- Physics Loss: {metrics['physics_loss']:.6f}
-""")
-
-# Scenario analysis
-scenarios = model.analyze_weather_scenarios()
-model.plot_scenario_comparison()
-```
+Model akan menghasilkan:
+- **Performance Metrics**: R², MAE, RMSE
+- **Visualisasi**: Prediksi vs Aktual
+- **Scenario Analysis**: 6 kondisi cuaca berbeda
+- **Model Comparison**: PINN vs baseline models
 
 ---
 
@@ -469,161 +382,39 @@ validation_metrics = {
 
 ```
 📦 pinn-solar-prediction/
-├── 📊 data/
-│   ├── 1398305_1.93_125.50_2020.csv      # Sample NSRDB dataset
-│   └── processed/                         # Processed datasets
-├── 📓 notebooks/
-│   ├── Database-api.IPYNB                 # Data acquisition notebook
-│   ├── PINN.IPYNB                         # Main model notebook
-│   └── analysis/                          # Additional analysis
-├── 🐍 src/
-│   ├── __init__.py
-│   ├── PINN.py                           # Main model script
-│   ├── data_acquisition.py               # NREL API handler
-│   ├── preprocessing.py                  # Data preprocessing
-│   ├── model/
-│   │   ├── pinn_model.py                 # PINN implementation
-│   │   ├── physics_layer.py              # Physics calculations
-│   │   └── evaluation.py                 # Model evaluation
-│   └── utils/
-│       ├── visualization.py              # Plotting utilities
-│       └── config.py                     # Configuration settings
-├── 📈 results/
-│   ├── models/                           # Saved models
-│   ├── plots/                            # Generated visualizations
-│   └── metrics/                          # Performance metrics
-├── 📚 docs/
-│   ├── research_paper.pdf                # Academic paper
-│   ├── api_documentation.md              # API docs
-│   └── user_guide.md                     # Detailed user guide
-├── 🧪 tests/
-│   ├── test_model.py                     # Model tests
-│   ├── test_physics.py                   # Physics validation
-│   └── test_api.py                       # API tests
-├── 📋 requirements.txt                    # Dependencies
-├── 🐳 Dockerfile                         # Container setup
-├── ⚙️ config.yaml                        # Configuration file
-├── 📄 LICENSE                            # MIT License
-└── 📖 README.md                          # This file
+├── 📊 1398305_1.93_125.50_2020.csv       # Sample NSRDB dataset
+├── 📓 Database-api.IPYNB                 # Data acquisition notebook  
+├── 📓 PINN.IPYNB                         # Main model notebook
+├── 🐍 PINN.py                           # Main model script
+├── 📚 Optimasi Prediksi [...].pdf        # Research paper
+├── 📋 requirements.txt                   # Dependencies
+├── 📄 LICENSE                           # MIT License
+└── 📖 README.md                         # Documentation
 ```
 
 ---
 
-## ⚙️ Konfigurasi Lanjutan
+## 🤝 Cara Berkontribusi
 
-### 🎛️ Model Hyperparameters
+Kami menyambut kontribusi dari komunitas! 
 
-```yaml
-# config.yaml
-model:
-  architecture:
-    hidden_layers: [64, 64, 32, 32, 16]
-    activation: 'tanh'
-    output_activation: 'sigmoid'
-  
-  training:
-    epochs: 100
-    batch_size: 32
-    learning_rate: 0.001
-    lambda_physics: 0.1
-    early_stopping_patience: 20
-  
-  physics:
-    panel_efficiency_ref: 0.20
-    temperature_coefficient: -0.004
-    panel_area: 1.0  # m²
-```
-
-### 🔧 Environment Variables
-
-```bash
-# .env file
-NREL_API_KEY=your_nrel_api_key_here
-DEFAULT_LATITUDE=-6.2
-DEFAULT_LONGITUDE=106.8
-DATA_CACHE_DIR=./data/cache
-MODEL_SAVE_DIR=./models
-LOG_LEVEL=INFO
-```
-
-### 🐳 Docker Deployment
-
-```dockerfile
-# Dockerfile
-FROM python:3.9-slim
-
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-EXPOSE 5000
-
-CMD ["python", "app.py"]
-```
-
-```bash
-# Build and run
-docker build -t pinn-solar .
-docker run -p 5000:5000 -e NREL_API_KEY=your_key pinn-solar
-```
-
----
-
-## 🤝 Kontribusi
-
-Kami menyambut kontribusi dari komunitas! 🎉
-
-### 🚀 Quick Contribution Guide
+### 🚀 Langkah Kontribusi
 
 1. **Fork** repository ini
-2. **Create** feature branch: `git checkout -b feature/AmazingFeature`
-3. **Commit** changes: `git commit -m 'Add AmazingFeature'`
-4. **Push** branch: `git push origin feature/AmazingFeature`
+2. **Create** feature branch: `git checkout -b feature/ImprovementName`
+3. **Commit** changes: `git commit -m 'Add improvement'`
+4. **Push** branch: `git push origin feature/ImprovementName`
 5. **Open** Pull Request
 
-### 🐛 Bug Reports
-Gunakan [GitHub Issues](https://github.com/yourusername/pinn-solar-prediction/issues) untuk melaporkan bug dengan template:
+### 🐛 Melaporkan Bug
+Gunakan [GitHub Issues](https://github.com/yourusername/pinn-solar-prediction/issues) untuk melaporkan bug atau request fitur baru.
 
-```markdown
-**Bug Description**
-Clear description of the bug
+### 👥 Tim Peneliti
 
-**To Reproduce**
-Steps to reproduce the behavior
-
-**Expected Behavior**
-What you expected to happen
-
-**Environment**
-- OS: [e.g. Windows 11]
-- Python: [e.g. 3.9.7]
-- Package versions: [requirements.txt]
-```
-
-### 💡 Feature Requests
-Kami terbuka untuk ide-ide baru! Silakan buat issue dengan label `enhancement`.
-
-### 👥 Contributors
-
-<table>
-<tr>
-    <td align="center">
-        <a href="https://github.com/syahrilarfianalmazril">
-            <img src="https://github.com/syahrilarfianalmazril.png" width="100px;" alt="Syahril Arfian Almazril"/>
-            <br /><sub><b>Syahril Arfian Almazril</b></sub>
-        </a>
-        <br />Lead Developer & Researcher
-    </td>
-    <td align="center">
-        <a href="https://github.com/stephanims">
-            <img src="https://github.com/stephanims.png" width="100px;" alt="Stephani Maria Sianturi"/>
-            <br /><sub><b>Stephani Maria Sianturi</b></sub>
-        </a>
-        <br />AI/ML Specialist
-    </td>
-</tr>
-</table>
+- **Syahril Arfian Almazril** - Lead Developer & Researcher
+- **Stephani Maria Sianturi** - Researcher member  
+- **Septia Retno Puspita** - Researcher member
+- **Ade Aditya Ramadha** - Technical Advisor
 
 ---
 
@@ -663,22 +454,6 @@ Kami terbuka untuk ide-ide baru! Silakan buat issue dengan label `enhancement`.
 
 Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE) untuk detail lengkap.
 
-```
-MIT License
-
-Copyright (c) 2025 Syahril Arfian Almazril
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-```
-
 ---
 
 <div align="center">
@@ -686,15 +461,6 @@ copies or substantial portions of the Software.
 ### 🌟 Dukung Proyek Ini
 
 Jika proyek ini bermanfaat, berikan ⭐ dan bagikan kepada komunitas!
-
-**Bersama membangun masa depan energi terbarukan Indonesia** 🇮🇩
-
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/pinn-solar-prediction.svg?style=social&label=Star)](https://github.com/yourusername/pinn-solar-prediction)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/pinn-solar-prediction.svg?style=social&label=Fork)](https://github.com/yourusername/pinn-solar-prediction/fork)
-
----
-
-*Dibuat dengan ❤️ untuk kemajuan energi terbarukan Indonesia*
 
 **Connect with us:**
 [LinkedIn](https://linkedin.com/in/syahrilarfian) • [Research Gate](https://researchgate.net/profile/syahril-almazril) • [Email](mailto:arfazrll@student.telkomuniversity.ac.id)
